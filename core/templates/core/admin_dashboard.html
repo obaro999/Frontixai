@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<table>
+<tr><th>Name</th><th>Phone</th><th>Date</th><th>Time</th></tr>
+{% for a in appointments %}
+<tr><td>{{ a.name }}</td><td>{{ a.phone }}</td><td>{{ a.date }}</td><td>{{ a.time }}</td></tr>
+{% empty %}
+<tr><td colspan="4" class="empty">No appointments yet.</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

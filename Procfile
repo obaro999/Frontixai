@@ -1,0 +1,1 @@
+web: gunicorn frontix_project.wsgi

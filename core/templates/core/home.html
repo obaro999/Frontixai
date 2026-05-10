@@ -1,0 +1,8 @@
+{% extends "core/base.html" %}
+{% block content %}
+<p style="color:#4a6080;font-size:13px;margin-bottom:20px">{% if is_returning %}Welcome back{% else %}Welcome{% endif %}</p>
+<h2 style="color:#fff;font-size:22px;margin-bottom:24px">Hello, {{ name }}!</h2>
+<a class="menu-item" href="/book/?phone={{ phone }}&name={{ name }}">Book Appointment <span>&rarr;</span></a>
+<a class="menu-item" href="/appointments/?phone={{ phone }}">My Appointments <span>&rarr;</span></a>
+<a class="menu-item" href="/payment/">Payment Info <span>&rarr;</span></a>
+{% endblock %}

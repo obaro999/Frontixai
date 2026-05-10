@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="card">
+<h2>Payment Info</h2>
+{% if config %}
+<div class="pay-row"><span class="pay-label">Bank</span><span class="pay-value">{{ config.bank_name }}</span></div>
+<div class="pay-row"><span class="pay-label">Account</span><span class="pay-value">{{ config.account_number }}</span></div>
+<div class="pay-row"><span class="pay-label">Name</span><span class="pay-value">{{ config.account_name }}</span></div>
+{% else %}
+<p style="color:#4a6080">Contact admin to set up payment info.</p>
+{% endif %}
+</div>
+<a class="back" href="/">&#8592; Back</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="card">
+<h2>Book Appointment</h2>
+<form method="post">
+{% csrf_token %}
+<input type="hidden" name="name" value="{{ request.GET.name }}">
+<input type="hidden" name="phone" value="{{ request.GET.phone }}">
+<input name="date" placeholder="Date e.g. 15 May 2026" required>
+<input name="time" placeholder="Time e.g. 2:00 PM" required>
+<button class="btn" type="submit">Confirm Booking</button>
+</form>
+</div>
+{% endblock %}

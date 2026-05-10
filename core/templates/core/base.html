@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frontix Ai</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0A1628; color:#fff; font-family:Georgia,serif; min-height:100vh; }
+.header { text-align:center; padding:30px 20px 20px; border-bottom:1px solid #1a2f4a; }
+.header h1 { font-size:28px; color:#fff; letter-spacing:1px; }
+.header p { color:#2DD4A0; font-size:11px; letter-spacing:3px; margin-top:4px; }
+.container { max-width:480px; margin:0 auto; padding:30px 20px; }
+.card { background:#0f2040; border-radius:12px; padding:28px; margin-bottom:20px; border:1px solid #1a3560; }
+h2 { color:#2DD4A0; font-size:20px; margin-bottom:20px; }
+input { width:100%; padding:14px; margin-bottom:16px; background:#0A1628; border:1px solid #1a3560; border-radius:8px; color:#fff; font-size:15px; }
+input:focus { outline:none; border-color:#2DD4A0; }
+input::placeholder { color:#4a6080; }
+.btn { width:100%; padding:15px; background:#2DD4A0; color:#0A1628; border:none; border-radius:8px; font-size:16px; font-weight:bold; cursor:pointer; font-family:Georgia,serif; }
+.btn:active { background:#25b88a; }
+.menu-item { display:block; padding:18px 20px; background:#0f2040; border:1px solid #1a3560; border-radius:10px; color:#fff; text-decoration:none; margin-bottom:12px; font-size:15px; }
+.menu-item span { color:#2DD4A0; float:right; }
+.appt-card { background:#0f2040; border:1px solid #1a3560; border-radius:10px; padding:16px; margin-bottom:12px; }
+.appt-date { color:#2DD4A0; font-size:14px; margin-bottom:4px; }
+.appt-time { color:#fff; font-size:16px; }
+.cancel-btn { background:none; border:1px solid #c0392b; color:#c0392b; padding:8px 16px; border-radius:6px; margin-top:10px; cursor:pointer; font-size:13px; }
+.success { text-align:center; padding:20px 0; }
+.success h2 { font-size:22px; }
+.success p { color:#aaa; margin:10px 0 24px; line-height:1.6; }
+.back { color:#2DD4A0; text-decoration:none; font-size:14px; display:block; text-align:center; margin-top:20px; }
+.pay-row { display:flex; justify-content:space-between; padding:14px 0; border-bottom:1px solid #1a3560; }
+.pay-label { color:#4a6080; font-size:14px; }
+.pay-value { color:#fff; font-size:14px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th { color:#2DD4A0; padding:10px 8px; text-align:left; border-bottom:1px solid #1a3560; }
+td { padding:10px 8px; border-bottom:1px solid #0f2040; color:#ccc; }
+.empty { color:#4a6080; text-align:center; padding:30px 0; }
+</style>
+</head>
+<body>
+<div class="header"><h1>Frontix Ai</h1><p>INTELLIGENT FRONT DESK</p></div>
+<div class="container">{% block content %}{% endblock %}</div>
+</body>
+</html>

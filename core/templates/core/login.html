@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="card" style="margin-top:30px">
+<h2>Welcome</h2>
+<form method="get" action="/">
+<input name="name" placeholder="Your full name" required>
+<input name="phone" placeholder="Phone number" required>
+<button class="btn" type="submit">Continue &rarr;</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="success">
+<h2 style="color:#2DD4A0">&#10003; Booked!</h2>
+<p>{{ name }}, your appointment on<br><strong style="color:#fff">{{ date }} at {{ time }}</strong><br>has been confirmed.</p>
+<a class="btn" href="/" style="display:block;text-decoration:none;text-align:center">Back Home</a>
+</div>
+{% endblock %}
