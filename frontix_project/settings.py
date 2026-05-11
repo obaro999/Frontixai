@@ -4,8 +4,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-nsmk&9#q*_=h05xmikfg~%qq8v9cgjnt-6l-ef*_=b%g#3ecq0'
 
-DEBUG = True
+DEBUG = False
 
+CSRF_TRUSTED_ORIGINS = ['https://web-production-4382f.up.railway.app']
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -68,6 +69,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+from django.core.files import locks
+locks.lock = lambda f, flags: True
+locks.unlock = lambda f: True
