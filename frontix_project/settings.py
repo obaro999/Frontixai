@@ -1,8 +1,9 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-nsmk&9#q*_=h05xmikfg~%qq8v9cgjnt-6l-ef*_=b%g#3ecq0'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-key')
 
 DEBUG = False
 
