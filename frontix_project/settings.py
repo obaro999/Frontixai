@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-nsmk&9#q*_=h05xmikfg~%qq8v9cgjnt-6l-ef*_=b%g#3ecq0
 
 DEBUG = False
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-4382f.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-7869e.up.railway.app']
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
