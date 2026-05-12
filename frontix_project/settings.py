@@ -75,3 +75,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from django.core.files import locks
 locks.lock = lambda f, flags: True
 locks.unlock = lambda f: True
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
