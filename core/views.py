@@ -35,7 +35,7 @@ def book(request):
         time = request.POST.get('time')
         Appointment.objects.create(name=name, phone=phone, date=date, time=time)
         send_sms(phone, "Hi " + name + ", your appointment on " + date + " at " + time + " is confirmed. - Frontix Ai")
-        return render(request, 'core/booked.html', {'name': name, 'date': date, 'time': time})
+        return redirect('/payment')
     return render(request, 'core/book.html')
 
 def appointments(request):
