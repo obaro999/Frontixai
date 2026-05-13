@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Setup Payment - Frontix AI</title></head>
+<body style="font-family:Arial;text-align:center;padding:50px;background:#0a0a1a;color:white">
+<h2>Setup Payment Info</h2>
+<form method="POST" style="display:inline-block;text-align:left">
+{% csrf_token %}
+<p><input name="bank_name" placeholder="Bank Name" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<input name="account_number" placeholder="Account Number" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<input name="account_name" placeholder="Account Name" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<input name="support_phone" placeholder="Support Phone" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<button type="submit" style="background:#00ff88;color:black;padding:12px 30px;border:none;border-radius:6px;width:322px;font-size:16px">Save</button></p>
+</form>
+<a href="/dashboard/" style="color:#00ff88">Back to Dashboard</a>
+</body>
+</html>

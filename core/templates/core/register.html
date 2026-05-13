@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Register - Frontix AI</title></head>
+<body style="font-family:Arial;text-align:center;padding:50px;background:#0a0a1a;color:white">
+<h2>Create Business Account</h2>
+<form method="POST" style="display:inline-block;text-align:left">
+{% csrf_token %}
+<p><input name="business_name" placeholder="Business Name" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<input name="username" placeholder="Username" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<input name="password" type="password" placeholder="Password" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<input name="phone" placeholder="Your Phone Number" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<button type="submit" style="background:#00ff88;color:black;padding:12px 30px;border:none;border-radius:6px;width:322px;font-size:16px">Register</button></p>
+</form>
+<p>Already have an account? <a href="/login/" style="color:#00ff88">Login</a></p>
+</body>
+</html>

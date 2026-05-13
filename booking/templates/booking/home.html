@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial; background: #0a0a1a; color: white; min-height: 100vh; padding: 40px 20px; }
+h2 { text-align: center; margin-bottom: 8px; }
+p.sub { text-align: center; color: #aaa; margin-bottom: 35px; font-size: 14px; }
+.btn { display: block; width: 100%; max-width: 340px; margin: 0 auto 15px; padding: 16px; border-radius: 8px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; border: none; }
+.primary { background: #00ff88; color: black; }
+.secondary { background: #1a1a2e; color: white; }
+</style>
+</head>
+<body>
+<h2>Welcome, {{ customer.name }}</h2>
+<p class="sub">{{ business.business_name }}</p>
+<a href="{% url 'book' business.slug %}" class="btn primary">Book Appointment</a>
+<a href="{% url 'appointments' business.slug %}" class="btn secondary">My Appointments</a>
+</body>
+</html>

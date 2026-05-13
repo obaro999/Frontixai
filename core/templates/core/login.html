@@ -1,11 +1,14 @@
-{% extends "core/base.html" %}
-{% block content %}
-<div class="card" style="margin-top:30px">
-<h2>Welcome</h2>
-<form method="get" action="/">
-<input name="name" placeholder="Your full name" required>
-<input name="phone" placeholder="Phone number" required>
-<button class="btn" type="submit">Continue &rarr;</button>
+<!DOCTYPE html>
+<html>
+<head><title>Login - Frontix AI</title></head>
+<body style="font-family:Arial;text-align:center;padding:50px;background:#0a0a1a;color:white">
+<h2>Business Login</h2>
+<form method="POST" style="display:inline-block;text-align:left">
+{% csrf_token %}
+<p><input name="username" placeholder="Username" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<input name="password" type="password" placeholder="Password" style="padding:10px;width:300px;border-radius:6px;border:none"><br><br>
+<button type="submit" style="background:#00ff88;color:black;padding:12px 30px;border:none;border-radius:6px;width:322px;font-size:16px">Login</button></p>
 </form>
-</div>
-{% endblock %}
+<p>No account? <a href="/register/" style="color:#00ff88">Register</a></p>
+</body>
+</html>

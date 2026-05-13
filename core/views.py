@@ -1,63 +1,83 @@
 from django.shortcuts import render, redirect
-from .models import Appointment, BusinessConfig
-import africastalking
+from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth.models import User
+from .models import Business, Service, Appointment
 
-AT_USERNAME = "sandbox"
-AT_API_KEY = "atsk_8da4c7433d5b213a9e15e59f7d54be971b2c43094e40ea6f2b985d49cc270430e09dc988"
+def landing(request):
+    return render(request, 'core/landing.html')
 
-africastalking.initialize(AT_USERNAME, AT_API_KEY)
-sms = africastalking.SMS
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        business_name = request.POST.get('business_name')
+        user = User.objects.create_user(username=username, password=password)
+        Business.objects.create(user=user, business_name=business_name, slug=username)
+        return redirect('/login/')
+    return render(request, 'core/register.html')
 
-def send_sms(phone, message):
-    try:
-        number = "+234" + phone.replace(" ", "")[-10:]
-        sms.send(message, [number])
-    except Exception as e:
-        print("SMS error: " + str(e))
-
-def home(request):
-    name = request.GET.get('name', '').strip()
-    phone = request.GET.get('phone', '').strip()
-    if name and phone:
-        is_returning = Appointment.objects.filter(phone=phone).exists()
-        return render(request, 'core/home.html', {
-            'name': name,
-            'phone': phone,
-            'is_returning': is_returning
-        })
+def business_login(request):
+    if request.method == 'POST':
+        user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
+        if user:
+            auth_login(request, user)
+            return redirect('/dashboard/')
     return render(request, 'core/login.html')
 
-def book(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        date = request.POST.get('date')
-        time = request.POST.get('time')
-        Appointment.objects.create(name=name, phone=phone, date=date, time=time)
-        send_sms(phone, "Hi " + name + ", your appointment on " + date + " at " + time + " is confirmed. - Frontix Ai")
-        return redirect('/payment')
-    return render(request, 'core/book.html')
-
-def appointments(request):
-    phone = request.GET.get('phone', '').strip()
-    items = Appointment.objects.filter(phone=phone, is_cancelled=False)
-    return render(request, 'core/appointments.html', {'appointments': items, 'phone': phone})
-
-def cancel(request):
-    if request.method == 'POST':
-        appt_id = request.POST.get('appt_id')
-        phone = request.POST.get('phone')
-        appt = Appointment.objects.get(id=appt_id)
-        appt.is_cancelled = True
-        appt.save()
-        send_sms(phone, "Your appointment on " + appt.date + " at " + appt.time + " has been cancelled. - Frontix Ai")
-        return redirect('/appointments/?phone=' + phone)
+def business_logout(request):
+    logout(request)
     return redirect('/')
 
-def payment(request):
-    config = BusinessConfig.objects.first()
-    return render(request, 'core/payment.html', {'config': config})
+def dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    business = Business.objects.get(user=request.user)
+    appointments = Appointment.objects.filter(business=business, is_cancelled=False).order_by('-created_at')
+    return render(request, 'core/dashboard.html', {'business': business, 'appointments': appointments})
 
-def admin_dashboard(request):
-    appointments = Appointment.objects.filter(is_cancelled=False).order_by('-created_at')
-    return render(request, 'core/admin_dashboard.html', {'appointments': appointments})
+def setup_payment(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    business = Business.objects.get(user=request.user)
+    if request.method == 'POST':
+        business.stripe_key = request.POST.get('stripe_key')
+        business.save()
+        return redirect('/dashboard/')
+    return render(request, 'core/setup_payment.html', {'business': business})
+
+def home(request, username):
+    business = Business.objects.get(slug=username)
+    return render(request, 'core/login_customer.html', {'business': business})
+
+def book(request, username):
+    business = Business.objects.get(slug=username)
+    services = Service.objects.filter(business=business)
+    if request.method == 'POST':
+        service_id = request.POST.get('service')
+        date = request.POST.get('date')
+        time = request.POST.get('time')
+        apt = Appointment.objects.create(
+            business=business,
+            name=request.session.get('customer_name', ''),
+            phone=request.session.get('customer_phone', ''),
+            service_id=service_id, date=date, time=time
+        )
+        return redirect(f'/{username}/payment/?apt={apt.id}')
+    return render(request, 'booking/book.html', {'business': business, 'services': services})
+
+def payment(request, username):
+    apt_id = request.GET.get('apt')
+    appointment = Appointment.objects.get(id=apt_id)
+    return render(request, 'booking/payment.html', {'appointment': appointment})
+
+def appointments(request, username):
+    business = Business.objects.get(slug=username)
+    phone = request.session.get('customer_phone', '')
+    apts = Appointment.objects.filter(business=business, phone=phone, is_cancelled=False)
+    return render(request, 'booking/appointments.html', {'appointments': apts})
+
+def cancel(request, username):
+    if request.method == 'POST':
+        apt_id = request.POST.get('apt_id')
+        Appointment.objects.filter(id=apt_id).update(is_cancelled=True)
+    return redirect(f'/{username}/appointments/')
