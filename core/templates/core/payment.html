@@ -1,14 +1,20 @@
-{% extends "core/base.html" %}
-{% block content %}
-<div class="card">
+<!DOCTYPE html>
+<html>
+<head><title>Payment - {{business.business_name}}</title></head>
+<body style="font-family:Arial;text-align:center;padding:50px;background:#0a0a1a;color:white">
 <h2>Payment Info</h2>
+<h3>{{business.business_name}}</h3>
 {% if config %}
-<div class="pay-row"><span class="pay-label">Bank</span><span class="pay-value">{{ config.bank_name }}</span></div>
-<div class="pay-row"><span class="pay-label">Account</span><span class="pay-value">{{ config.account_number }}</span></div>
-<div class="pay-row"><span class="pay-label">Name</span><span class="pay-value">{{ config.account_name }}</span></div>
-{% else %}
-<p style="color:#4a6080">Contact admin to set up payment info.</p>
-{% endif %}
+<div style="background:#1a1a2e;padding:30px;border-radius:10px;display:inline-block;text-align:left">
+<p><strong>Bank:</strong> {{config.bank_name}}</p>
+<p><strong>Account Number:</strong> {{config.account_number}}</p>
+<p><strong>Account Name:</strong> {{config.account_name}}</p>
+<p><strong>Support:</strong> {{config.support_phone}}</p>
 </div>
-<a class="back" href="/">&#8592; Back</a>
-{% endblock %}
+{% else %}
+<p>Contact admin to set up payment info.</p>
+{% endif %}
+<br><br>
+<a href="/{{request.resolver_match.kwargs.username}}/appointments/?phone={{request.GET.phone}}" style="color:#00ff88">View My Appointments</a>
+</body>
+</html>

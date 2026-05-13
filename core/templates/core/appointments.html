@@ -1,19 +1,23 @@
-{% extends "core/base.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head><title>Appointments - {{business.business_name}}</title></head>
+<body style="font-family:Arial;text-align:center;padding:50px;background:#0a0a1a;color:white">
 <h2>My Appointments</h2>
+<h3>{{business.business_name}}</h3>
 {% for a in appointments %}
-<div class="appt-card">
-<div class="appt-date">{{ a.date }}</div>
-<div class="appt-time">{{ a.time }}</div>
-<form method="post" action="/cancel/">
+<div style="background:#1a1a2e;padding:15px;margin:10px 0;border-radius:8px;text-align:left">
+<p>{{a.date}} at {{a.time}}</p>
+<form method="POST" action="/{{request.resolver_match.kwargs.username}}/cancel/">
 {% csrf_token %}
-<input type="hidden" name="appt_id" value="{{ a.id }}">
-<input type="hidden" name="phone" value="{{ phone }}">
-<button class="cancel-btn" type="submit">Cancel</button>
+<input type="hidden" name="appt_id" value="{{a.id}}">
+<input type="hidden" name="phone" value="{{phone}}">
+<button type="submit" style="background:red;color:white;padding:8px 20px;border:none;border-radius:6px">Cancel</button>
 </form>
 </div>
 {% empty %}
-<p class="empty">No appointments booked.</p>
+<p>No appointments found.</p>
 {% endfor %}
-<a class="back" href="/">&#8592; Back</a>
-{% endblock %}
+<br>
+<a href="/{{request.resolver_match.kwargs.username}}/book/" style="color:#00ff88">Book New Appointment</a>
+</body>
+</html>
