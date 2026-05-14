@@ -1,1 +1,1 @@
-web: python manage.py migrate && python manage.py createsuperuser --noinput || true && gunicorn frontix_project.wsgi
+web: python manage.py migrate && gunicorn frontix_project.wsgi
