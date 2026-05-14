@@ -2,7 +2,7 @@
 {% block content %}
 <div class="card">
 <h2>Book Appointment</h2>
-<form method="post">
+<form method="post" action="/{{ business.owner.username }}/book/">
 {% csrf_token %}
 <input type="hidden" name="name" value="{{ request.GET.name }}">
 <input type="hidden" name="phone" value="{{ request.GET.phone }}">
