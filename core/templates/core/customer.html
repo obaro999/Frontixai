@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{business.name}}</title></head>
+<body style="font-family:Arial;text-align:center;padding:50px;background:#0a0a1a;color:white">
+<h2>{{business.name}}</h2>
+<p>Enter your details to book or view appointments</p>
+<form method="GET" action="/{{business.owner.username}}/">
+<input name="name" placeholder="Your Name" required style="padding:10px;width:300px;border-radius:6px;border:none;margin:5px"><br><br>
+<input name="phone" placeholder="Your Phone Number" required style="padding:10px;width:300px;border-radius:6px;border:none;margin:5px"><br><br>
+<button type="submit" style="background:#00ff88;color:black;padding:12px 30px;border:none;border-radius:6px;width:322px;font-size:16px">Continue</button>
+</form>
+</body>
+</html>
