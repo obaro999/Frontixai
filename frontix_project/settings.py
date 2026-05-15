@@ -7,6 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-nsmk8#9#q*_=h05xmikfg~%qq8v9cgjnt-6l-ef*_=b%g#3ecq0')
 
 DEBUG = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-7869e.up.railway.app']
 ALLOWED_HOSTS = ['*']
