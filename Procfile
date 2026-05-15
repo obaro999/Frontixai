@@ -1,1 +1,1 @@
-web: python manage.py migrate --fake core zero && python manage.py migrate && gunicorn frontix_project.wsgi
+web: python reset_db.py && python manage.py migrate && gunicorn frontix_project.wsgi
