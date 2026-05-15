@@ -8,7 +8,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-nsmk8#9#q*_=h05xmikfg
 
 DEBUG = False
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-4382f.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-7869e.up.railway.app']
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
