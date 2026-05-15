@@ -1,14 +1,18 @@
-{% extends "core/base.html" %}
-{% block content %}
-<div class="card">
-<h2>Book Appointment</h2>
-<form method="post" action="/{{ business.owner.username }}/book/">
-{% csrf_token %}
-<input type="hidden" name="name" value="{{ request.GET.name }}">
-<input type="hidden" name="phone" value="{{ request.GET.phone }}">
-<input name="date" placeholder="Date e.g. 15 May 2026" required>
-<input name="time" placeholder="Time e.g. 2:00 PM" required>
-<button class="btn" type="submit">Confirm Booking</button>
-</form>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head><title>Book with {{ business.name }}</title></head>
+<body>
+  <h2>Book an Appointment with {{ business.name }}</h2>
+  {% if messages %}
+    {% for msg in messages %}<p style="color:red">{{ msg }}</p>{% endfor %}
+  {% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Your Full Name" required><br><br>
+    <input type="text" name="phone" placeholder="Phone (e.g. 2348012345678)" required><br><br>
+    <input type="date" name="date" required><br><br>
+    <input type="time" name="time" required><br><br>
+    <button type="submit">Confirm Booking</button>
+  </form>
+</body>
+</html>

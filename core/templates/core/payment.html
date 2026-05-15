@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head><title>Payment - {{business.business_name}}</title></head>
-<body style="font-family:Arial;text-align:center;padding:50px;background:#0a0a1a;color:white">
-<h2>Payment Info</h2>
-<h3>{{business.business_name}}</h3>
-{% if config %}
-<div style="background:#1a1a2e;padding:30px;border-radius:10px;display:inline-block;text-align:left">
-<p><strong>Bank:</strong> {{config.bank_name}}</p>
-<p><strong>Account Number:</strong> {{config.account_number}}</p>
-<p><strong>Account Name:</strong> {{config.account_name}}</p>
-<p><strong>Support:</strong> {{config.support_phone}}</p>
-</div>
-{% else %}
-<p>Contact admin to set up payment info.</p>
-{% endif %}
-<br><br>
-<a href="/{{request.resolver_match.kwargs.username}}/appointments/?phone={{request.GET.phone}}" style="color:#00ff88">View My Appointments</a>
+<head><title>Payment Info - {{ business.name }}</title></head>
+<body>
+  <h2>Payment Information</h2>
+  <p>Your appointment with <strong>{{ business.name }}</strong> is confirmed!</p>
+  <p>Please complete your payment using the details below:</p>
+  <div style="background:#f5f5f5; padding:16px; border-radius:8px;">
+    {{ config.payment_info|linebreaks }}
+  </div>
 </body>
 </html>

@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head><title>Dashboard - Frontix AI</title></head>
-<body style="font-family:Arial;padding:30px;background:#0a0a1a;color:white">
-<h2>{{business.name}} Dashboard</h2>
-<p>Plan: {{business.plan}} | <a href="/setup-payment/" style="color:#00ff88">Setup Payment</a> | <a href="/logout/" style="color:red">Logout</a></p>
-<p>Your booking link: <strong>https://{{request.get_host}}/{{request.user.username}}/</strong></p>
-<h3>Recent Bookings</h3>
-{% for a in appointments %}
-<div style="background:#1a1a2e;padding:15px;margin:10px 0;border-radius:8px">
-<p>{{a.name}} | {{a.phone}} | {{a.date}} at {{a.time}}</p>
-</div>
-{% empty %}
-<p>No bookings yet.</p>
-{% endfor %}
+<head><title>{{ business.name }} - Dashboard</title></head>
+<body>
+  <h2>{{ business.name }} Dashboard</h2>
+  <p>
+    <a href="{% url 'update_payment_info' %}">Update Payment Info</a> | 
+    <a href="{% url 'logout' %}">Logout</a>
+  </p>
+
+  <h3>Your Booking Link</h3>
+  <p><strong>https://{{ request.get_host }}{% url 'book_appointment' business.id %}</strong></p>
+  <p>Share this link with your customers.</p>
+
+  <h3>Appointments</h3>
+  {% if appointments %}
+    <table border="1" cellpadding="8">
+      <tr>
+        <th>Name</th><th>Phone</th><th>Date</th><th>Time</th><th>Action</th>
+      </tr>
+      {% for apt in appointments %}
+      <tr>
+        <td>{{ apt.name }}</td>
+        <td>{{ apt.phone }}</td>
+        <td>{{ apt.date }}</td>
+        <td>{{ apt.time }}</td>
+        <td>
+          <a href="{% url 'cancel_appointment' apt.id %}"
+             onclick="return confirm('Cancel this appointment?')">Cancel</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No appointments yet.</p>
+  {% endif %}
 </body>
 </html>
