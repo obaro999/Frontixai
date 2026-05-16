@@ -5,18 +5,17 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.text import slugify
 from .models import Business, BusinessConfig, Appointment
-import africastalking
 import os
-
-africastalking.initialize(
-    username=os.environ.get('AT_USERNAME', 'sandbox'),
-    api_key=os.environ.get('AT_API_KEY', '')
-)
-sms = africastalking.SMS
 
 
 def send_sms(phone, message):
     try:
+        import africastalking
+        africastalking.initialize(
+            username=os.environ.get('AT_USERNAME', 'sandbox'),
+            api_key=os.environ.get('AT_API_KEY', '')
+        )
+        sms = africastalking.SMS
         sms.send(message, [f"+{phone.lstrip('+').lstrip('0')}"])
     except Exception as e:
         print(f"SMS error: {e}")
