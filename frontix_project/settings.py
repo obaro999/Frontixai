@@ -6,7 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-nsmk8#9#q*_=h05xmikfg~%qq8v9cgjnt-6l-ef*_=b%g#3ecq0')
 
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
